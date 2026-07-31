@@ -20,10 +20,23 @@ Alternativ kannst du einen normalen **Web Service** anlegen:
 
 ## Google-Anmeldung
 
-Die bisherige ChatGPT-Anmeldung wurde aus dieser Render-Version entfernt.
-Eine echte Google-Anmeldung wird ergänzt, sobald eine eigene Domain und ein
-Google-OAuth-Webclient vorhanden sind. Speichere Client-Secrets ausschließlich
-als geheime Environment Variables in Render und niemals im Quellcode.
+Die echte Google-Anmeldung ist eingebaut. Trage in der Google Cloud Console
+bei deinem OAuth-Webclient Folgendes ein:
+
+- Authorized JavaScript origin:
+  `https://cryptotool-bn4f.onrender.com`
+- Authorized redirect URI:
+  `https://cryptotool-bn4f.onrender.com/api/auth/callback/google`
+
+Trage anschließend bei Render unter **Environment** diese Variablen ein:
+
+- `GOOGLE_CLIENT_ID` – deine öffentliche Client-ID
+- `GOOGLE_CLIENT_SECRET` – dein geheimer Clientschlüssel
+- `AUTH_SECRET` – über **Generate** einen langen Zufallswert erstellen
+
+Speichere Client-Secrets ausschließlich als geheime Environment Variables in
+Render und niemals im Quellcode oder auf GitHub. Führe nach Änderungen einen
+neuen Deploy aus.
 
 ## Datenschutz
 

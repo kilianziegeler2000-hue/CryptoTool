@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 
 type Mode = "encrypt" | "decrypt" | "scan";
 type ScanResult = { name: string; status: "safe" | "warning"; detail: string };
@@ -44,6 +45,11 @@ function download(data: BlobPart, name: string) {
 }
 
 export default function Home() {
+  return <SessionProvider><CryptoTool /></SessionProvider>;
+}
+
+function CryptoTool() {
+  const { data: session, status: sessionStatus } = useSession();
   const [mode, setMode] = useState<Mode>("encrypt");
   const [files, setFiles] = useState<File[]>([]);
   const [password, setPassword] = useState("");
@@ -131,6 +137,18 @@ export default function Home() {
         <div className="nav-actions">
           <div className="offline">● 100 % lokal & offline</div>
           <a className="download-button" href="/CryptoTool-Desktop.zip" download>↓ Download</a>
+          {session?.user ? (
+            <div className="account-menu">
+              <span>{session.user.name || session.user.email}</span>
+              <button onClick={() => signOut({ callbackUrl: "/" })}>Abmelden</button>
+            </div>
+          ) : (
+            <button
+              className="login-button"
+              disabled={sessionStatus === "loading"}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
+            ><b>G</b> Mit Google anmelden</button>
+          )}
         </div>
       </nav>
       <section className="hero">
