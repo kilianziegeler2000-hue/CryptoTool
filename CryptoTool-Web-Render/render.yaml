@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: cryptotool-web
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
