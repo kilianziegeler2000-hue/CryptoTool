@@ -136,7 +136,7 @@ function CryptoTool() {
         <div className="brand"><span>◆</span> CryptoTool</div>
         <div className="nav-actions">
           <div className="offline">● 100 % lokal & offline</div>
-          <a className="download-button" href="/CryptoTool-Desktop.zip" download>↓ Download</a>
+          <a className="download-button" href="/CryptoTool-Python.zip" download>↓ Python-App</a>
           {session?.user ? (
             <div className="account-menu">
               <span>{session.user.name || session.user.email}</span>
